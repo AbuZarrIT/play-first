@@ -1,0 +1,41 @@
+.container-play {
+    width: 598px;
+    height: 598px;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.container-result {
+    width: 400px;
+    height: 200px;
+    background-color:rgb(131, 131, 131);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+    align-items: center;
+    color: aliceblue;
+}
+.box {
+    width: 198px;
+    height: 198px;
+    border: 1px solid black;
+    justify-content: center;
+    display: flex;
+    align-items: end;
+    font-size: 200px;
+}
+.main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+button{
+    width: 150px;
+    height: 50px;
+    border-radius: 20px;
+    background-color:rgb(131, 131, 131);
+    font-size: 25px;
+    color: aliceblue;
+}
