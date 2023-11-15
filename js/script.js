@@ -4,7 +4,7 @@ const o = 'o';
 let playFirst = 0,
     playSecond = 0,
     winX = 0;
-    winO = 1;
+    winO = 0;
 
 function checkWin() {
     if (
@@ -31,6 +31,7 @@ function checkWin() {
         (box[2].textContent === o && box[4].textContent === o && box[6].textContent === o)
     ) {
         clear();
+        winO++;
         result('.result-second','O',winO)
     }
 }
@@ -65,3 +66,13 @@ function result(name, play, num){
 }
 const rest = document.querySelector('.btn-rest');
 rest.addEventListener('click', clear);
+
+/* function test(){
+    box.forEach(element => {
+        if(!Object.keys(element).length === 0){
+            console.log('error')
+        } else {
+            console.log(typeof(clickEl))
+        } 
+    });
+} */
