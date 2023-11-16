@@ -1,10 +1,13 @@
 const box = document.querySelectorAll('.box');
+
 const x = 'x';
 const o = 'o';
+
 let playFirst = 0,
     playSecond = 0,
     winX = 0,
     winO = 0;
+
 function checkWin() {
     if (
         (box[0].textContent === x && box[1].textContent === x && box[2].textContent === x) ||
@@ -43,16 +46,15 @@ function add(){
     box.forEach(element => {
         element.addEventListener('click', e => {
             const clickEl = e.target;
+            bot()
             if(clickEl.textContent === x || clickEl.textContent === o){
                 alert('выберите другой вариант')
             } else if ( playFirst >= playSecond){
                 playSecond += +1;
                 element.append(x)
-                console.log(playSecond)
             } else if (playSecond >= playFirst){
                 playFirst += +1;
                 element.append(o)
-                console.log(playFirst)
             };
             checkWin();
         });
@@ -66,10 +68,13 @@ function clear(){
         element.textContent = '';
     })
 }
+
 function result(name, play, num){
-    document.querySelector(name).textContent = `Игрок ${play} выйграл: ${num} раз`;
+    document.querySelector(name).textContent = `player ${play} won: ${num} games`;
 }
+
 const rest = document.querySelector('.btn-rest');
+
 rest.addEventListener('click', () => {
     clear()
     result('.result-second','O',winO = 0)
@@ -79,7 +84,7 @@ rest.addEventListener('click', () => {
 
 function test(){
     if(playFirst === 5 || playSecond === 5){
-        alert('Ничья')
+        alert('draw')
         nol()
         clear();
     }
@@ -88,4 +93,12 @@ function test(){
 function nol(){
     playFirst = 0;
     playSecond = 0;
+}
+
+/* bot */
+
+function getRandomInt(min = 0, max = 9) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
 }
