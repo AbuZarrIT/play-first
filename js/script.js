@@ -46,7 +46,6 @@ function add(){
     box.forEach(element => {
         element.addEventListener('click', e => {
             const clickEl = e.target;
-            bot()
             if(clickEl.textContent === x || clickEl.textContent === o){
                 alert('выберите другой вариант')
             } else if ( playFirst >= playSecond){
