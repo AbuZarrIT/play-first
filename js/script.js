@@ -3,9 +3,8 @@ const x = 'x';
 const o = 'o';
 let playFirst = 0,
     playSecond = 0,
-    winX = 0;
+    winX = 0,
     winO = 0;
-
 function checkWin() {
     if (
         (box[0].textContent === x && box[1].textContent === x && box[2].textContent === x) ||
@@ -19,7 +18,8 @@ function checkWin() {
     ) {
         winX++,
         clear();
-        result('.result-first','X',winX)
+        result('.result-first','X',winX);
+        nol()
     } else if (
         (box[0].textContent === o && box[1].textContent === o && box[2].textContent === o) ||
         (box[3].textContent === o && box[4].textContent === o && box[5].textContent === o) ||
@@ -32,7 +32,10 @@ function checkWin() {
     ) {
         clear();
         winO++;
-        result('.result-second','O',winO)
+        result('.result-second','O',winO);
+        nol()
+    } else {
+        test();
     }
 }
     
@@ -45,9 +48,11 @@ function add(){
             } else if ( playFirst >= playSecond){
                 playSecond += +1;
                 element.append(x)
+                console.log(playSecond)
             } else if (playSecond >= playFirst){
                 playFirst += +1;
                 element.append(o)
+                console.log(playFirst)
             };
             checkWin();
         });
@@ -65,14 +70,22 @@ function result(name, play, num){
     document.querySelector(name).textContent = `Игрок ${play} выйграл: ${num} раз`;
 }
 const rest = document.querySelector('.btn-rest');
-rest.addEventListener('click', clear);
+rest.addEventListener('click', () => {
+    clear()
+    result('.result-second','O',winO = 0)
+    result('.result-first','X',winX = 0)
+    nol()
+});
 
-/* function test(){
-    box.forEach(element => {
-        if(!Object.keys(element).length === 0){
-            console.log('error')
-        } else {
-            console.log(typeof(clickEl))
-        } 
-    });
-} */
+function test(){
+    if(playFirst === 5 || playSecond === 5){
+        alert('Ничья')
+        nol()
+        clear();
+    }
+};
+
+function nol(){
+    playFirst = 0;
+    playSecond = 0;
+}
