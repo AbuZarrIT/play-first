@@ -1,6 +1,6 @@
 .container-play {
-    width: 598px;
-    height: 598px;
+    width: 600px;
+    height: 600px;
     border: 2px solid black;
     display: flex;
     flex-direction: row;
