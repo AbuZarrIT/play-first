@@ -1,46 +1,11 @@
 const box = document.querySelectorAll('.box');
-
+const restart = document.querySelector('.btn-rest');
 const x = 'x';
 const o = 'o';
-
 let playFirst = 0,
     playSecond = 0,
     winX = 0,
     winO = 0;
-
-function checkWin() {
-    if (
-        (box[0].textContent === x && box[1].textContent === x && box[2].textContent === x) ||
-        (box[3].textContent === x && box[4].textContent === x && box[5].textContent === x) ||
-        (box[6].textContent === x && box[7].textContent === x && box[8].textContent === x) ||
-        (box[0].textContent === x && box[3].textContent === x && box[6].textContent === x) ||
-        (box[1].textContent === x && box[4].textContent === x && box[7].textContent === x) ||
-        (box[2].textContent === x && box[5].textContent === x && box[8].textContent === x) ||
-        (box[0].textContent === x && box[4].textContent === x && box[8].textContent === x) ||
-        (box[2].textContent === x && box[4].textContent === x && box[6].textContent === x)
-    ) {
-        winX++,
-        clear();
-        result('.result-first','X',winX);
-        nol()
-    } else if (
-        (box[0].textContent === o && box[1].textContent === o && box[2].textContent === o) ||
-        (box[3].textContent === o && box[4].textContent === o && box[5].textContent === o) ||
-        (box[6].textContent === o && box[7].textContent === o && box[8].textContent === o) ||
-        (box[0].textContent === o && box[3].textContent === o && box[6].textContent === o) ||
-        (box[1].textContent === o && box[4].textContent === o && box[7].textContent === o) ||
-        (box[2].textContent === o && box[5].textContent === o && box[8].textContent === o) ||
-        (box[0].textContent === o && box[4].textContent === o && box[8].textContent === o) ||
-        (box[2].textContent === o && box[4].textContent === o && box[6].textContent === o)
-    ) {
-        clear();
-        winO++;
-        result('.result-second','O',winO);
-        nol()
-    } else {
-        test();
-    }
-}
     
 function add(){
     box.forEach(element => {
@@ -55,49 +20,71 @@ function add(){
                 playFirst += +1;
                 element.append(o)
             };
-            checkWin();
+            test();
+            checkWinO();
+            checkWinX();
         });
     })
 }
 
 add()
 
-function clear(){
-    box.forEach(element => {
-        element.textContent = '';
-    })
-}
-
-function result(name, play, num){
-    document.querySelector(name).textContent = `player ${play} won: ${num} games`;
-}
-
-const rest = document.querySelector('.btn-rest');
-
-rest.addEventListener('click', () => {
-    clear()
-    result('.result-second','O',winO = 0)
-    result('.result-first','X',winX = 0)
-    nol()
+restart.addEventListener('click', () => {
+    clear();
+    result(o,winO = 0);
+    result(x,winX = 0);
+    nol();
 });
 
+function result(name, player){
+    document.getElementById(name).textContent = player;
+};
+
 function test(){
-    if(playFirst === 5 || playSecond === 5){
-        alert('draw')
-        nol()
+    if(checkWinX() || checkWinO() || playFirst == 5 || playSecond == 5){
+        nol();
         clear();
-    }
+        alert('draw');
+    };
 };
 
 function nol(){
     playFirst = 0;
     playSecond = 0;
-}
+};
 
-/* bot */
+function clear(){
+    box.forEach(element => {
+        element.textContent = '';
+    });
+};
 
-function getRandomInt(min = 0, max = 9) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-}
+function checkWinX() {
+    let arr = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    arr.forEach(element => {
+        if(element.every(item => box[item].textContent === x)){
+            winX++;
+            result(x,winX);
+            nol();
+            clear();
+            return true;
+        } else {
+            return false;
+        }
+    });
+};
+
+function checkWinO() {
+    let arr = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    arr.forEach(element => {
+        if(element.every(item => box[item].textContent === o)){
+            winO++;
+            result(o,winO);
+            nol();
+            clear();
+            return true;
+        } else {
+            return false;
+        };
+    });
+};
